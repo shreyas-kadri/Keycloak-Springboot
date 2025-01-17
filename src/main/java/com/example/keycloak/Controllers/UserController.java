@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
 
     @GetMapping("/api")
-    @PreAuthorize("hasRole('USER')")
+    @PreAuthorize("hasAnyRole('USER','ADMIN')")
     public String userApi()
     {
-        return "This is a user only api";
+        return "This is user api";
     }
 }
