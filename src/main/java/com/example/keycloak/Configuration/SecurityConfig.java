@@ -31,7 +31,11 @@ public class SecurityConfig {
         http.authorizeHttpRequests(auth -> {
                     auth.requestMatchers("/**").fullyAuthenticated();
                 })
-                .oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt);
+                .oauth2ResourceServer(oauth2 ->
+                        oauth2.jwt(jwt ->
+                                jwt.jwtAuthenticationConverter(jwtAuthenticationConverterForKeycloak())
+                        )
+                );
 
         return http.build();
     }
