@@ -1,0 +1,35 @@
+version: "3.8"
+
+services:
+
+  localhost:
+    image: alpine:latest
+    container_name: localhost
+    command: sleep infinity
+    ports:
+      - "8080:8080"
+      - "8085:8085"
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: spring-keycloak
+    depends_on:
+      - keycloak
+    network_mode: "service:localhost"
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:26.0.7
+    container_name: keycloak
+    environment:
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+    command: start-dev --import-realm
+    volumes:
+      - keycloak-data:/opt/keycloak/data
+      - ./keycloakRealmConfig.json:/opt/keycloak/data/import/keycloakRealmConfig.json
+    network_mode: "service:localhost"
+
+volumes:
+  keycloak-data:

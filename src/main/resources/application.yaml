@@ -1,27 +1,12 @@
 spring:
+  application:
+    name: keycloakSpringboot
   security:
     oauth2:
-      client:
-        provider:
-          keycloak:
-            issuer-uri: http://localhost:8080/realms/master
-        registration:
-          keycloak:
-            client-id: keycloak-springboot
-            client-secret: 1kDIQ1hnbbL3K0sAyGWw33IlaUyzAapa
-            scope: openid,profile,email
       resourceserver:
         jwt:
-          issuer-uri: http://localhost:8080/realms/master
-
-keycloak:
-  realm: master
-  auth-server-url: http://localhost:8080/auth
-  resource: my-client
-  public-client: true
-  use-resource-role-mappings: true
-  credentials:
-    secret: 1kDIQ1hnbbL3K0sAyGWw33IlaUyzAapa
+          issuer-uri: http://localhost:8080/realms/TestRealm
+          jwk-set-uri: http://localhost:8080/realms/TestRealm/protocol/openid-connect/certs
 
 server:
-  port: 8085
+  port : 8085

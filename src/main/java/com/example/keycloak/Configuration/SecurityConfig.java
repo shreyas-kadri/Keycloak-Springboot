@@ -44,7 +44,7 @@ public class SecurityConfig {
     public JwtAuthenticationConverter jwtAuthenticationConverterForKeycloak() {
         Converter<Jwt, Collection<GrantedAuthority>> jwtGrantedAuthoritiesConverter = jwt -> {
             Map<String, Object> resourceAccess = jwt.getClaim("resource_access");
-            Object client = resourceAccess.get("keycloak-springboot");
+            Object client = resourceAccess.get("springboot-app");
             LinkedTreeMap<String, List<String>> clientRoleMap = (LinkedTreeMap<String, List<String>>) client;
 
             List<String> clientRoles = new ArrayList<>(clientRoleMap.get("roles"));
